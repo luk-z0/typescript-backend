@@ -9,6 +9,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^5.1.0",
+    "module-alias": "^2.2.3",
     "pg": "^8.14.1",
     "reflect-metadata": "^0.2.2",
     "typeorm": "^0.3.21",
@@ -28,5 +29,8 @@
   "scripts": {
     "dev": "ts-node-dev --transpile-only src/index.ts",
     "typeorm": "./node_modules/.bin/typeorm"
+  },
+  "_moduleAliases": {
+    "@": "src"
   }
 }
