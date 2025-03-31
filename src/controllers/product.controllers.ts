@@ -43,15 +43,51 @@ class ProductController {
 
     const product = await productRepository.findOneBy({ id })
 
-    if(!product){
+    if (!product) {
       return response.status(404).send({
-        "error": "Product not found"
+        error: "Product not found"
       })
     }
 
     return response.status(200).send({
       data: product
     });
+  }
+
+  async update(request: Request, response: Response): Promise<Response> {
+    const id: string = request.params.id;
+    const { name, description, weight } = request.body;
+    const productRepository = AppDataSource.getRepository(Product);
+    let product;
+
+    try {
+      product = await productRepository.findOneByOrFail({ id });
+      product.name = name;
+      product.description = description;
+      product.weight = weight;
+      const updatedProduct = await productRepository.save(product);
+      return response.status(200).send({
+        data: updatedProduct
+      })
+    } catch (error) {
+      return response.status(500).send({
+        error: "Internal error"
+      })
+    }
+  }
+
+  async delete(request: Request, response: Response): Promise<Response> {
+    const id: string = request.params.id;
+    const productRepository = AppDataSource.getRepository(Product);
+
+    try {
+      await productRepository.delete(id);
+      return response.status(204).send({})
+    } catch (error) {
+      return response.status(400).send({
+        error: 'Error deleting'
+      })
+    }
   }
 }
 
