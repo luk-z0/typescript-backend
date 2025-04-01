@@ -1,5 +1,4 @@
 import { Request, Response } from 'express'
-import { Product } from '../entities/product.entity'
 import { validate } from 'class-validator';
 import { ProductRepository } from '@/repositories/product.repository';
 import CreateProductDTO, { UpdateProductDTO } from '@/dto/product.dto';
